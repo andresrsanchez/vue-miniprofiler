@@ -30,13 +30,6 @@ namespace VueProfiler.Api
         {
             services.AddMiniProfiler();
             services.AddCors();
-            //services.AddCors(option => option.AddPolicy(POLICY, builder =>
-            //{
-            //    builder.AllowAnyHeader()
-            //        .AllowAnyMethod()
-            //        .WithOrigins(new string[] { "http://localhost:8080", "http://localhost:5000" })
-            //        .WithExposedHeaders("X-MiniProfiler-Ids");
-            //}));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
