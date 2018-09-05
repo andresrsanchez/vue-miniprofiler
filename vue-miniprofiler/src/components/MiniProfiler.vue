@@ -8,10 +8,7 @@ import axios from 'axios';
 
 @Component
 export default class MiniProfiler extends Vue {
-    private readonly key: string = 'MiniProfiler';
-    private miniProfiler: any = (window as any)[this.key];
-
-    @Prop() private id!: string;
+    @Prop({ default: 'mini-profiler' }) private id!: string;
     @Prop() private scriptSrc!: string;
     @Prop() private cssSrc!: string;
     @Prop() private dataPath!: string;
@@ -43,7 +40,9 @@ export default class MiniProfiler extends Vue {
     private axiosSetUp() {
         axios.interceptors.response.use(function success(config) {
             const miniProfilerIds = JSON.parse(config.headers['x-miniprofiler-ids']) as string[];
-            // this.miniProfiler.fetchResults(miniProfilerIds);
+            const key: string = 'MiniProfiler';
+            const miniProfiler: any = (window as any)[key];
+            miniProfiler.fetchResults(miniProfilerIds);
             return config;
         }, function bug(error) {
             return Promise.reject(error);
