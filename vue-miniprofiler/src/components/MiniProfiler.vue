@@ -35,8 +35,19 @@ export default class MiniProfiler extends Vue {
     }
 
     private created() {
+        this.axiosSetUp();
         this.appendDivElement();
         this.appendCssLink();
+    }
+
+    private axiosSetUp() {
+        axios.interceptors.response.use(function success(config) {
+            const miniProfilerIds = JSON.parse(config.headers['x-miniprofiler-ids']) as string[];
+            // this.miniProfiler.fetchResults(miniProfilerIds);
+            return config;
+        }, function bug(error) {
+            return Promise.reject(error);
+        });
     }
 
     private appendDivElement(): void {

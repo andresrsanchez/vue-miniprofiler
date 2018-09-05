@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <MiniProfiler 
-      :scriptSrc=lol
-      
-       />
+      :scriptSrc="scriptSrc"
+      :dataPath="dataPath"
+      :cssSrc="cssSrc"/>
   </div>
 </template>
 
@@ -20,21 +20,9 @@ import axios from 'axios';
   },
 })
 export default class App extends Vue {
-  private created() {
-    const key: string = 'MiniProfiler';
-    const miniProfiler: any = (window as any)[key];
-    console.log(miniProfiler);
-
-    axios.interceptors.response.use(function lel(config) {
-      const miniProfilerIds = JSON.parse(config.headers['x-miniprofiler-ids']) as string[];
-      miniProfiler.fetchResults(miniProfilerIds);
-      console.log(config);
-      return config;
-    }, function lol(error) {
-      console.log(error);
-      return Promise.reject(error);
-    });
-  }
+  private scriptSrc: string = 'http://localhost:5000/mini-profiler-resources/includes.min.js';
+  private dataPath: string = 'http://localhost:5000/mini-profiler-resources/';
+  private cssSrc: string = 'http://localhost:5000/mini-profiler-resources/includes.min.css';
 }
 </script>
 
