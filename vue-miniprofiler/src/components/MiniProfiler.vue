@@ -1,5 +1,4 @@
 <template>
-    <button type="button" @click="getProfiler">Click Me!</button> 
 </template>
 
 <script lang="ts">
@@ -27,21 +26,17 @@ export default class MiniProfiler extends Vue {
     @Prop({ default: true }) private scriptAsync!: boolean;
     @Prop({ default: '' }) private innerHTML!: string;
 
-    private getProfiler() {
-        axios.get('http://localhost:5000/api/values');
-    }
-
-    private created() {
+    private created(): void {
         this.axiosSetUp();
         this.appendDivElement();
         this.appendCssLink();
     }
 
-    private axiosSetUp() {
+    private axiosSetUp(): void {
+        const key: string = 'MiniProfiler';
+        const miniProfiler: any = (window as any)[key];
         axios.interceptors.response.use(function success(config) {
             const miniProfilerIds = JSON.parse(config.headers['x-miniprofiler-ids']) as string[];
-            const key: string = 'MiniProfiler';
-            const miniProfiler: any = (window as any)[key];
             miniProfiler.fetchResults(miniProfilerIds);
             return config;
         }, function bug(error) {
