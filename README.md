@@ -1,0 +1,2 @@
+MiniProfiler component in Vue
+=
