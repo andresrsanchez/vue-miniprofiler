@@ -71,8 +71,7 @@ export default class MiniProfiler extends Vue {
     private appendCssLink(): void {
         const body = document.body as HTMLDivElement;
         const css = document.createElement('link');
-        const cssUrl = this.cssSrc;
-        css.href = cssUrl;
+        css.href = this.cssSrc;
         css.rel = 'stylesheet';
 
         body.appendChild(css);
